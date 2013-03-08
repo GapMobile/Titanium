@@ -12,7 +12,11 @@ exports.getList = function(callback) {
 			var title = data[i].title;
 			var year = data[i].year;
 			var guid = data[i].guid;
-			var movie = new Movie(title,year,guid);
+			var imageData = null;
+			if (data[i].images.length > 0) {
+				imageData = data[i].images[0];
+			}
+			var movie = new Movie(title,year,guid, imageData);
 			movies.push(movie);
 		}
 		

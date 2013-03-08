@@ -1,8 +1,9 @@
 //FirstView Component Constructor
-function FirstView() {
+exports.FirstView = function (navController) {
 	//load dependencies
 	var datastore = require('services/datastore');
 	
+	var ImageView = require('ui/common/ImageView');
 	//create object instance
 	var self = Ti.UI.createTableView({
 		data:[{title:'Loading Data...'}]
@@ -31,9 +32,15 @@ function FirstView() {
 	Ti.App.addEventListener('moviesUpdated', function(data){
 		loadData(data.message);
 	});	
+	
+	
+	//toggle done state of todo item on click
+	self.addEventListener('click', function(e) {
+		var Movie = movies[e.index];
+		navController.open(new ImageView(Movie.imageData));
+	});
+		
 	//initialize and return instance from constructor
 	loadData();
 	return self;
 }
-
-module.exports = FirstView;

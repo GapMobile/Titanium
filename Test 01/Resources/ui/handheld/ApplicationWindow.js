@@ -1,17 +1,18 @@
 //Application Window Component Constructor
-function ApplicationWindow() {
+
+exports.ApplicationWindow = function (navController) {
 	//load component dependencies
-	var FirstView = require('ui/common/FirstView'),
+	var FirstView = require('ui/common/FirstView').FirstView,
 		network = require('services/network'),
 		datastore = require('services/datastore');
-		
+
 	//create component instance
 	var self = Ti.UI.createWindow({
 		backgroundColor:'#ffffff'
 	});
 		
 	//construct UI
-	var firstView = new FirstView();
+	var firstView = new FirstView(navController);
 	self.add(firstView);
 	
 	//add behavior
@@ -28,10 +29,7 @@ function ApplicationWindow() {
 			movieList.fireEvent('moviesUpdated');
 			Ti.App.Properties.setBool('seeded', true);
 		});
-	}	
-		
+	}	  
+	
 	return self;
 }
-
-//make constructor function the public component interface
-module.exports = ApplicationWindow;
